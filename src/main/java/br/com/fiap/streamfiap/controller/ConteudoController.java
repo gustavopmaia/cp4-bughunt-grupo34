@@ -58,7 +58,7 @@ public class ConteudoController {
     @PostMapping("/serie")
     public ResponseEntity<Serie> cadastrarSerie(@RequestBody Serie serie) {
         Serie nova = new Serie(serie.getTitulo(), serie.getCategoria(), serie.duracaoMinutos,
-                serie.getClassificacaoEtaria(), serie.getNumeroTemporadas());
+                serie.getClassificacaoEtaria(), serie.isDisponivel(), serie.getNumeroTemporadas());
         return ResponseEntity.status(201).body(conteudoRepository.save(nova));
     }
 
