@@ -20,7 +20,7 @@ public class Usuario {
     }
 
     public Usuario(String nome, int idade, double creditos) {
-        nome = nome;
+        this.nome = nome;
         this.idade = idade;
         this.creditos = creditos;
     }
