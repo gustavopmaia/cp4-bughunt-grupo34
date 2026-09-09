@@ -15,6 +15,11 @@ public class Documentario extends Conteudo {
         this.tema = tema;
     }
 
+    @Override
+    public double calcularPrecoAluguel() {
+        return 0.0;
+    }
+
     public String getTema() { return tema; }
     public void setTema(String tema) { this.tema = tema; }
 }
