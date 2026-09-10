@@ -50,9 +50,8 @@ public abstract class Conteudo {
         }
     }
 
-    public double calcularPrecoAluguel() {
-        return 9.90;
-    }
+    /** Cada tipo de conteudo define seu proprio preco (contrato da API). */
+    public abstract double calcularPrecoAluguel();
 
     public double calcularPrecoPromocional() {
         if (this instanceof Promocionavel) {
