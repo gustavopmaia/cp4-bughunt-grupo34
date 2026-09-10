@@ -21,6 +21,15 @@ public class Usuario {
     }
 
     public Usuario(String nome, int idade, double creditos) {
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Nome do usuario e obrigatorio");
+        }
+        if (idade < 0) {
+            throw new IllegalArgumentException("Idade nao pode ser negativa: " + idade);
+        }
+        if (creditos < 0) {
+            throw new IllegalArgumentException("Creditos nao podem ser negativos: " + creditos);
+        }
         this.nome = nome;
         this.idade = idade;
         this.creditos = creditos;
