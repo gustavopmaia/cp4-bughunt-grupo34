@@ -38,31 +38,31 @@ public class Usuario {
         this.creditos = this.creditos - valor;
     }
 
-    public Usuario alugar(Conteudo c) throws ClassificacaoIndicativaException {
-        if (!c.isDisponivel()) {
-            throw new ConteudoIndisponivelException(c.getTitulo() + " nao esta disponivel para aluguel");
+    public Usuario alugar(Conteudo conteudo) throws ClassificacaoIndicativaException {
+        if (!conteudo.isDisponivel()) {
+            throw new ConteudoIndisponivelException(conteudo.getTitulo() + " nao esta disponivel para aluguel");
         }
 
-        if (this.idade < c.getClassificacaoEtaria()) {
+        if (this.idade < conteudo.getClassificacaoEtaria()) {
             throw new ClassificacaoIndicativaException("Usuário de " + this.idade
-                    + " anos não pode assistir a " + c.getTitulo()
-                    + " (classificação " + c.getClassificacaoEtaria() + " anos)");
+                    + " anos não pode assistir a " + conteudo.getTitulo()
+                    + " (classificação " + conteudo.getClassificacaoEtaria() + " anos)");
         }
 
-        double p = c.calcularPrecoAluguel();
+        double preco = conteudo.calcularPrecoAluguel();
 
-        if (!temCreditosSuficientes(p)) {
-            throw new CreditosInsuficientesException("Créditos insuficientes para alugar " + c.getTitulo());
+        if (!temCreditosSuficientes(preco)) {
+            throw new CreditosInsuficientesException("Créditos insuficientes para alugar " + conteudo.getTitulo());
         }
 
-        debitarCreditos(p);
-        c.setDisponivel(false);
+        debitarCreditos(preco);
+        conteudo.setDisponivel(false);
 
         System.out.println("==================================================");
         System.out.println("RECIBO STREAMFIAP");
         System.out.println("Usuario: " + this.nome);
-        System.out.println("Conteudo: " + c.getTitulo());
-        System.out.println("Valor pago: R$ " + p);
+        System.out.println("Conteudo: " + conteudo.getTitulo());
+        System.out.println("Valor pago: R$ " + preco);
         System.out.println("Creditos restantes: R$ " + this.creditos);
         System.out.println("Obrigado por usar o StreamFIAP!");
         System.out.println("==================================================");
