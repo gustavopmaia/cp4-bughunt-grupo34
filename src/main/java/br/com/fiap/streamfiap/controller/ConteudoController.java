@@ -26,8 +26,7 @@ public class ConteudoController {
 
     @GetMapping("/{id}")
     public Conteudo buscarPorId(@PathVariable Long id) {
-        return conteudoRepository.findById(id)
-                .orElseThrow(() -> new ConteudoNaoEncontradoException("Conteúdo não encontrado: " + id));
+        return buscarConteudoOuFalhar(id);
     }
 
     @GetMapping("/categoria/{categoria}")
@@ -37,9 +36,12 @@ public class ConteudoController {
 
     @GetMapping("/{id}/preco-promocional")
     public double precoPromocional(@PathVariable Long id) {
-        Conteudo conteudo = conteudoRepository.findById(id)
+        return buscarConteudoOuFalhar(id).calcularPrecoPromocional();
+    }
+
+    private Conteudo buscarConteudoOuFalhar(Long id) {
+        return conteudoRepository.findById(id)
                 .orElseThrow(() -> new ConteudoNaoEncontradoException("Conteúdo não encontrado: " + id));
-        return conteudo.calcularPrecoPromocional();
     }
 
     // recria a instância para ignorar um id que o cliente tenha enviado no corpo
