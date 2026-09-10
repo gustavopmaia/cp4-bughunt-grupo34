@@ -57,7 +57,12 @@ public class Usuario {
 
         debitarCreditos(preco);
         conteudo.setDisponivel(false);
+        imprimirRecibo(conteudo, preco);
 
+        return this;
+    }
+
+    private void imprimirRecibo(Conteudo conteudo, double preco) {
         System.out.println("==================================================");
         System.out.println("RECIBO STREAMFIAP");
         System.out.println("Usuario: " + this.nome);
@@ -66,8 +71,6 @@ public class Usuario {
         System.out.println("Creditos restantes: R$ " + this.creditos);
         System.out.println("Obrigado por usar o StreamFIAP!");
         System.out.println("==================================================");
-
-        return this;
     }
 
     public Long getId() { return id; }
