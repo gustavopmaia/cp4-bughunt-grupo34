@@ -19,26 +19,22 @@ public class ConteudoController {
     @Autowired
     private ConteudoRepository conteudoRepository;
 
-    // GET /api/conteudos - Listar todos
     @GetMapping
     public List<Conteudo> listarTodos() {
         return conteudoRepository.findAll();
     }
 
-    // GET /api/conteudos/{id} - Buscar por ID
     @GetMapping("/{id}")
     public Conteudo buscarPorId(@PathVariable Long id) {
         return conteudoRepository.findById(id)
                 .orElseThrow(() -> new ConteudoNaoEncontradoException("Conteúdo não encontrado: " + id));
     }
 
-    // GET /api/conteudos/categoria/{categoria} - Buscar por categoria
     @GetMapping("/categoria/{categoria}")
     public List<Conteudo> listarPorCategoria(@PathVariable String categoria) {
         return conteudoRepository.findByCategoria(categoria);
     }
 
-    // GET /api/conteudos/{id}/preco-promocional - Preço com promoção
     @GetMapping("/{id}/preco-promocional")
     public double precoPromocional(@PathVariable Long id) {
         Conteudo conteudo = conteudoRepository.findById(id)
@@ -46,7 +42,7 @@ public class ConteudoController {
         return conteudo.calcularPrecoPromocional();
     }
 
-    // POST /api/conteudos/filme - cadastra um filme (cria nova instância sem o id vindo do cliente)
+    // recria a instância para ignorar um id que o cliente tenha enviado no corpo
     @PostMapping("/filme")
     public ResponseEntity<Filme> cadastrarFilme(@RequestBody Filme filme) {
         Filme novo = new Filme(filme.getTitulo(), filme.getCategoria(), filme.getDuracaoMinutos(),
@@ -54,7 +50,6 @@ public class ConteudoController {
         return ResponseEntity.status(201).body(conteudoRepository.save(novo));
     }
 
-    // POST /api/conteudos/serie - cadastra uma série
     @PostMapping("/serie")
     public ResponseEntity<Serie> cadastrarSerie(@RequestBody Serie serie) {
         Serie nova = new Serie(serie.getTitulo(), serie.getCategoria(), serie.getDuracaoMinutos(),
@@ -62,7 +57,6 @@ public class ConteudoController {
         return ResponseEntity.status(201).body(conteudoRepository.save(nova));
     }
 
-    // POST /api/conteudos/documentario - cadastra um documentário
     @PostMapping("/documentario")
     public ResponseEntity<Documentario> cadastrarDocumentario(@RequestBody Documentario documentario) {
         Documentario novo = new Documentario(documentario.getTitulo(), documentario.getCategoria(),

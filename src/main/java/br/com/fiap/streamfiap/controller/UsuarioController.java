@@ -13,14 +13,13 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    // POST /api/usuarios - Cadastrar usuário (cria nova instância sem o id vindo do cliente)
+    // recria a instância para ignorar um id que o cliente tenha enviado no corpo
     @PostMapping
     public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
         Usuario novo = new Usuario(usuario.getNome(), usuario.getIdade(), usuario.getCreditos());
         return ResponseEntity.status(201).body(usuarioRepository.save(novo));
     }
 
-    // GET /api/usuarios/{id} - Buscar usuário por ID
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
         Usuario usuario = usuarioRepository.findById(id)
